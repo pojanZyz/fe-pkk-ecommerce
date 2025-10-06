@@ -289,6 +289,12 @@
                 currentPage = 1;
                 loadAccounts();
             });
+
+                        // Add logout functionality
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                localStorage.clear();
+                window.location.href = '../login.html';
+            });
         }
         
         // Load Accounts from API
