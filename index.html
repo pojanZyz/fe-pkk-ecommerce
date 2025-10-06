@@ -71,6 +71,7 @@
       background-color: transparent;
       margin-bottom: 2rem;
       transition: transform 0.3s;
+      cursor: pointer;
     }
     
     .product-card:hover {
@@ -208,7 +209,7 @@
     .bestseller-card .card-text {
       font-size: 0.8rem;
       text-align: center;
-      color: var (--dark-taupe);
+      color: var(--dark-taupe);
     }
     
     .bestseller-card .btn {
@@ -217,57 +218,24 @@
       margin-top: 0.5rem;
     }
 
-    .quantity-selector {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 1rem 0;
-    }
-    
-    .quantity-btn {
-      width: 30px;
-      height: 30px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid #ddd;
-      background: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    
-    .quantity-input {
-      width: 50px;
-      height: 30px;
-      text-align: center;
-      border: 1px solid #ddd;
-      margin: 0 0.5rem;
+    .card-img-top {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
     }
 
-    .total-price {
-      text-align: center;
-      margin-bottom: 1rem;
-      font-weight: bold;
-    }
-    .cozy-section .row {
-      align-items: stretch;
-    }
-    .bestseller-card {
-      margin-top: 14rem;
-      height: 50%;
-      width: 60%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-    .bestseller-card .card-img-top {
-      height: 25rem;
+    .product-thumb {
+      width: 100%;
+      aspect-ratio: 1 / 1;
       object-fit: cover;
+      display: block;
     }
 
     #bestseller-row {
       height: 20rem !important;
     }
+    
     @media (min-width: 768px) {
       #bestseller-row .col-md-6 {
         flex: 0 0 100%;
@@ -296,7 +264,7 @@
         margin-right: auto;
       }
     }
-    /* Tambahkan style untuk scroll horizontal pada modal kategori */
+    
     #categoryModalBody {
       display: flex;
       flex-wrap: nowrap;
@@ -304,15 +272,17 @@
       gap: 1rem;
       padding-bottom: 1rem;
     }
+    
     #categoryModalBody .col-md-4 {
       min-width: 270px;
       flex: 0 0 auto;
     }
-    /* Sembunyikan scrollbar di Webkit */
+    
     #categoryModalBody::-webkit-scrollbar {
       height: 8px;
       background: #ecebde;
     }
+    
     #categoryModalBody::-webkit-scrollbar-thumb {
       background: #d7d3bf;
       border-radius: 4px;
@@ -321,55 +291,197 @@
     .shadow{
       filter: drop-shadow(0 0 10px black);
     }
+
+    .cozy-section .row {
+      align-items: stretch;
+    }
+    
+    .bestseller-card {
+      margin-top: 14rem;
+      height: 50%;
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    /* Custom SweetAlert2 Styles */
+    .swal2-popup {
+      border-radius: 15px;
+      padding: 0;
+      overflow: hidden;
+      max-width: 500px;
+    }
+
+    .product-modal-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-modal-image {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 15px 15px 0 0;
+    }
+
+    .product-modal-content {
+      padding: 2rem;
+      background: white;
+    }
+
+    .product-modal-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .product-modal-price {
+      font-size: 1.3rem;
+      color: var(--dark-taupe);
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .quantity-selector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1.5rem 0;
+      gap: 1rem;
+    }
+
+    .quantity-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid var(--dark-taupe);
+      background: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: all 0.3s;
+      color: var(--dark-taupe);
+      font-weight: bold;
+    }
+
+    .quantity-btn:hover {
+      background: var(--dark-taupe);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .quantity-input {
+      width: 70px;
+      height: 40px;
+      text-align: center;
+      border: 2px solid var(--light-taupe);
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .quantity-input:focus {
+      outline: none;
+      border-color: var(--dark-taupe);
+    }
+
+    .total-price {
+      text-align: center;
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: var(--pale-taupe);
+      border-radius: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .swal2-confirm {
+      background-color: var(--dark-taupe) !important;
+      border-radius: 25px !important;
+      padding: 0.75rem 2.5rem !important;
+      font-size: 1rem !important;
+      font-weight: 600 !important;
+      transition: all 0.3s !important;
+    }
+
+    .swal2-confirm:hover {
+      background-color: #8f8770 !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .swal2-cancel {
+      border-radius: 25px !important;
+      padding: 0.75rem 2.5rem !important;
+      font-size: 1rem !important;
+      font-weight: 600 !important;
+      background-color: #e0e0e0 !important;
+      color: #666 !important;
+    }
+
+    .swal2-actions {
+      gap: 1rem !important;
+      padding: 1.5rem !important;
+    }
+
+    .swal2-title {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
 
   <!-- Hero Section -->
   <section class="hero-section" style="background-image: url('img/bg_main.jpg'); background-position: left bottom;">
-      <nav class="navbar navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand mx-auto" href="#">MIX SHOES</a>
-      <div class="collapse navbar-collapse justify-content-center">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Latest Products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sneakers</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Heels</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sport</a>
-          </li>
-          <!-- Dashboard nav link -->
-          <li class="nav-item" id="dashboardNav" style="display:none">
-            <a class="nav-link" href="./dashboard/index.html">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <button id="authButton" class="btn btn-outline-light shadow">Sign In</button>
-          </li>
-          <li class="nav-item">
-            <a href="./cart.html" class="btn btn-outline-light shadow cart-btn">
-              <i class="bi bi-cart"></i>
-              <span class="cart-count" id="cartCount">0</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="./history.html" class="btn btn-outline-light shadow cart-btn">
-              <i class="bi bi-clock-history"></i>
-              <span class="history-count" id="historyCount">0</span>
-            </a>
-          </li>
-        </ul>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand mx-auto" href="#">MIX SHOES</a>
+        <div class="collapse navbar-collapse justify-content-center">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Latest Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sneakers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Heels</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sport</a>
+            </li>
+            <li class="nav-item" id="dashboardNav" style="display:none">
+              <a class="nav-link" href="./dashboard/index.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <button id="authButton" class="btn btn-outline-light shadow">Sign In</button>
+            </li>
+            <li class="nav-item">
+              <a href="./cart.html" class="btn btn-outline-light shadow cart-btn">
+                <i class="bi bi-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="./history.html" class="btn btn-outline-light shadow cart-btn">
+                <i class="bi bi-clock-history"></i>
+                <span class="history-count" id="historyCount">0</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
   </section>
 
   <!-- New Arrivals Section -->
@@ -412,7 +524,7 @@
     </div>
   </section>
 
-  <!-- Best Sellers Section (Previously Cozy Section) -->
+  <!-- Best Sellers Section -->
   <section class="cozy-section">
     <div class="container">
       <div class="row">
@@ -420,7 +532,7 @@
           <div class="row" id="bestseller-row">
             <div class="col-md-6">
               <div class="card product-card bestseller-card">
-                <img src="/api/placeholder/400/500" class="card-img-top bestseller-img" alt="Best Seller1">
+                <img src="/api/placeholder/400/500" class="card-img-top bestseller-img product-thumb" alt="Best Seller1">
                 <div class="card-body px-0 py-2">
                   <h5 class="card-title bestseller-title">Loading...</h5>
                   <p class="card-text bestseller-price">Loading...</p>
@@ -430,7 +542,7 @@
             </div>
             <div class="col-md-6">
               <div class="card product-card bestseller-card">
-                <img src="/api/placeholder/400/500" class="card-img-top bestseller-img" alt="Best Seller2">
+                <img src="/api/placeholder/400/500" class="card-img-top bestseller-img product-thumb" alt="Best Seller2">
                 <div class="card-body px-0 py-2">
                   <h5 class="card-title bestseller-title">Loading...</h5>
                   <p class="card-text bestseller-price">Loading...</p>
@@ -498,12 +610,10 @@
   <script>
     const BASE_API = 'https://be-pkk-production.up.railway.app/api';
 
-    // Helper: format rupiah
     function formatRupiah(num) {
       return 'Rp ' + Number(num).toLocaleString('id-ID');
     }
 
-    // Check login status and update UI
     async function checkLoginStatus() {
       const token = localStorage.getItem('token');
       const authButton = document.getElementById('authButton');
@@ -512,7 +622,6 @@
 
       if (token) {
         try {
-          // Fetch user info from /api/me
           const res = await fetch('https://be-pkk-production.up.railway.app/api/me', {
             headers: {
               'Authorization': `Bearer ${token}`
@@ -520,7 +629,6 @@
           });
           if (res.ok) {
             const data = await res.json();
-            // Cek jika username === 'admin'
             if (data && data.role === 'admin') {
               isAdmin = true;
             }
@@ -529,7 +637,6 @@
       }
 
       if (token) {
-        // User is logged in
         authButton.innerHTML = '<i class="bi bi-box-arrow-right"></i>';
         authButton.onclick = function() {
           localStorage.removeItem('token');
@@ -543,14 +650,12 @@
             checkLoginStatus();
           });
         };
-        // Show dashboard nav only for admin
         if (isAdmin) {
           dashboardNav.style.display = '';
         } else {
           dashboardNav.style.display = 'none';
         }
       } else {
-        // User is not logged in
         authButton.textContent = 'Sign In';
         authButton.onclick = function() {
           window.location.href = './login.html';
@@ -561,7 +666,6 @@
       updateHistoryCount();
     }
 
-    // Update cart count
     async function updateCartCount() {
       const cartCount = document.getElementById('cartCount');
       const token = localStorage.getItem('token');
@@ -580,7 +684,6 @@
           return;
         }
         const data = await res.json();
-        // data bisa array langsung atau {data: array}
         const items = Array.isArray(data.data) ? data.data : (Array.isArray(data) ? data : []);
         cartCount.textContent = items.length;
       } catch (e) {
@@ -588,7 +691,6 @@
       }
     }
 
-    // Update history count
     async function updateHistoryCount() {
       const historyCount = document.getElementById('historyCount');
       const token = localStorage.getItem('token');
@@ -597,7 +699,6 @@
         return;
       }
       try {
-        // Ambil userId dari token JWT
         const payload = JSON.parse(atob(token.split('.')[1]));
         const userId = payload.id;
 
@@ -611,9 +712,7 @@
           return;
         }
         const data = await res.json();
-        // data bisa array langsung atau {data: array}
         const items = Array.isArray(data.data) ? data.data : (Array.isArray(data) ? data : []);
-        // Hanya hitung transaksi milik user login
         const userItems = items.filter(item => item.UserId == userId);
         historyCount.textContent = userItems.length;
       } catch (e) {
@@ -621,7 +720,6 @@
       }
     }
 
-    // Latest Products
     async function loadLatestProducts() {
       const container = document.querySelector('.section-title + .row');
       container.innerHTML = '';
@@ -634,7 +732,7 @@
           container.innerHTML += `
             <div class="col-md-3">
               <div class="card product-card" data-name="${p.name}" data-price="${p.price}" data-img="${p.image}" data-id="${p.id}">
-                <img src="${p.image || '/api/placeholder/300/400'}" class="card-img-top" alt="${p.name}">
+                <img src="${p.image || '/api/placeholder/300/400'}" class="card-img-top product-thumb" alt="${p.name}">
                 <div class="card-body px-0 py-2">
                   <h5 class="card-title">${p.name}</h5>
                   <p class="card-text">${formatRupiah(p.price)}</p>
@@ -643,14 +741,12 @@
             </div>
           `;
         });
-        // Re-attach product card click event
         attachProductCardEvents();
       } catch (e) {
         container.innerHTML = '<div class="col-12 text-center text-danger">Failed to load products.</div>';
       }
     }
 
-    // Add item to cart with API
     async function addToCartAPI(productId, quantity) {
       try {
         const token = localStorage.getItem('token');
@@ -685,7 +781,6 @@
         
         const data = await response.json();
         if (data.status === 'success') {
-          // Also add to local storage for cart count display
           const cart = JSON.parse(localStorage.getItem('cart') || '[]');
           const existingItem = cart.findIndex(item => item.id === productId);
           
@@ -717,207 +812,133 @@
       }
     }
 
-    // Attach click event for product cards
+    function showProductModal(productId, productName, productPrice, img) {
+      const formattedPrice = formatRupiah(productPrice);
+      
+      const modalContent = `
+        <div class="product-modal-container">
+          <img src="${img}" class="product-modal-image" alt="${productName}">
+          <div class="product-modal-content">
+            <h5 class="product-modal-title">${productName}</h5>
+            <p class="product-modal-price">${formattedPrice}</p>
+            
+            <div class="quantity-selector">
+              <button class="quantity-btn decrease">−</button>
+              <input type="number" class="quantity-input" value="1" min="1" max="10">
+              <button class="quantity-btn increase">+</button>
+            </div>
+            
+            <div class="total-price">
+              Total: ${formattedPrice}
+            </div>
+          </div>
+        </div>
+      `;
+      
+      Swal.fire({
+        html: modalContent,
+        showCancelButton: true,
+        confirmButtonText: '<i class="bi bi-cart-plus"></i> Add to Cart',
+        confirmButtonColor: '#A59D84',
+        cancelButtonText: 'Cancel',
+        width: '500px',
+        padding: 0,
+        customClass: {
+          popup: 'product-modal-popup'
+        },
+        didOpen: () => {
+          const decreaseBtn = document.querySelector('.decrease');
+          const increaseBtn = document.querySelector('.increase');
+          const quantityInput = document.querySelector('.quantity-input');
+          const totalPriceDiv = document.querySelector('.total-price');
+          
+          const updateTotalPrice = () => {
+            const quantity = parseInt(quantityInput.value);
+            const total = quantity * productPrice;
+            totalPriceDiv.textContent = `Total: ${formatRupiah(total)}`;
+          };
+          
+          decreaseBtn.addEventListener('click', () => {
+            let qty = parseInt(quantityInput.value);
+            if (qty > 1) {
+              quantityInput.value = qty - 1;
+              updateTotalPrice();
+            }
+          });
+          
+          increaseBtn.addEventListener('click', () => {
+            let qty = parseInt(quantityInput.value);
+            if (qty < 10) {
+              quantityInput.value = qty + 1;
+              updateTotalPrice();
+            }
+          });
+          
+          quantityInput.addEventListener('change', () => {
+            let qty = parseInt(quantityInput.value);
+            if (isNaN(qty) || qty < 1) quantityInput.value = 1;
+            if (qty > 10) quantityInput.value = 10;
+            updateTotalPrice();
+          });
+        }
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const quantity = parseInt(document.querySelector('.quantity-input').value);
+          
+          const success = await addToCartAPI(productId, quantity);
+          
+          if (success) {
+            Swal.fire({
+              title: 'Added to Cart!',
+              text: `${quantity} ${quantity > 1 ? 'items' : 'item'} of ${productName} added to your cart.`,
+              icon: 'success',
+              confirmButtonColor: '#A59D84'
+            });
+          }
+        }
+      });
+    }
+
     function attachProductCardEvents() {
       document.querySelectorAll('.product-card').forEach(card => {
         card.onclick = function() {
           const productId = this.getAttribute('data-id');
           const productName = this.getAttribute('data-name') || this.querySelector('.card-title').textContent;
           const productPrice = this.getAttribute('data-price');
-          const formattedPrice = formatRupiah(productPrice);
           const img = this.getAttribute('data-img') || this.querySelector('img').src;
           
-          // Create HTML for the modal content with quantity selector
-          const modalContent = `
-            <div class="text-center">
-              <img src="${img}" style="max-height: 300px; max-width: 100%;" class="mb-3">
-              <h5>${productName}</h5>
-              <p>${formattedPrice}</p>
-              
-              <div class="quantity-selector">
-                <button class="quantity-btn decrease">-</button>
-                <input type="number" class="quantity-input" value="1" min="1" max="10">
-                <button class="quantity-btn increase">+</button>
-              </div>
-              
-              <div class="total-price">
-                Total: ${formattedPrice}
-              </div>
-            </div>
-          `;
-          
-          Swal.fire({
-            title: 'Add to Cart',
-            html: modalContent,
-            showCancelButton: true,
-            confirmButtonText: 'Add to Cart',
-            confirmButtonColor: '#A59D84',
-            cancelButtonText: 'Cancel',
-            didOpen: () => {
-              // Set up quantity selector functionality
-              const decreaseBtn = document.querySelector('.decrease');
-              const increaseBtn = document.querySelector('.increase');
-              const quantityInput = document.querySelector('.quantity-input');
-              const totalPriceDiv = document.querySelector('.total-price');
-              
-              const updateTotalPrice = () => {
-                const quantity = parseInt(quantityInput.value);
-                const total = quantity * productPrice;
-                totalPriceDiv.textContent = `Total: ${formatRupiah(total)}`;
-              };
-              
-              decreaseBtn.addEventListener('click', () => {
-                let qty = parseInt(quantityInput.value);
-                if (qty > 1) {
-                  quantityInput.value = qty - 1;
-                  updateTotalPrice();
-                }
-              });
-              
-              increaseBtn.addEventListener('click', () => {
-                let qty = parseInt(quantityInput.value);
-                if (qty < 10) {
-                  quantityInput.value = qty + 1;
-                  updateTotalPrice();
-                }
-              });
-              
-              quantityInput.addEventListener('change', () => {
-                let qty = parseInt(quantityInput.value);
-                if (isNaN(qty) || qty < 1) quantityInput.value = 1;
-                if (qty > 10) quantityInput.value = 10;
-                updateTotalPrice();
-              });
-            }
-          }).then(async (result) => {
-            if (result.isConfirmed) {
-              const quantity = parseInt(document.querySelector('.quantity-input').value);
-              
-              // Add to cart using API
-              const success = await addToCartAPI(productId, quantity);
-              
-              if (success) {
-                Swal.fire({
-                  title: 'Added to Cart!',
-                  text: `${quantity} ${quantity > 1 ? 'items' : 'item'} of ${productName} added to your cart.`,
-                  icon: 'success',
-                  confirmButtonColor: '#A59D84'
-                });
-              }
-            }
-          });
+          showProductModal(productId, productName, productPrice, img);
         };
       });
     }
 
-    // Attach add to cart event for bestseller products
     function attachBestSellerEvents() {
       document.querySelectorAll('.add-to-cart-bestseller').forEach(btn => {
         btn.addEventListener('click', async function(e) {
-          e.stopPropagation(); // Prevent parent card click
+          e.stopPropagation();
           
           const productId = this.getAttribute('data-id');
-          const productName = this.closest('.bestseller-card').querySelector('.bestseller-title').textContent;
-          const priceText = this.closest('.bestseller-card').querySelector('.bestseller-price').textContent;
-          const img = this.closest('.bestseller-card').querySelector('img').src;
+          const card = this.closest('.bestseller-card');
+          const productName = card.querySelector('.bestseller-title').textContent;
+          const priceText = card.querySelector('.bestseller-price').textContent;
+          const img = card.querySelector('img').src;
           
-          // Create HTML for the modal content with quantity selector
-          const modalContent = `
-            <div class="text-center">
-              <img src="${img}" style="max-height: 300px; max-width: 100%;" class="mb-3">
-              <h5>${productName}</h5>
-              <p>${priceText}</p>
-              
-              <div class="quantity-selector">
-                <button class="quantity-btn decrease">-</button>
-                <input type="number" class="quantity-input" value="1" min="1" max="10">
-                <button class="quantity-btn increase">+</button>
-              </div>
-              
-              <div class="total-price">
-                Total: ${priceText}
-              </div>
-            </div>
-          `;
+          // Extract price number
+          const productPrice = parseInt(priceText.replace(/[^0-9]/g, ''));
           
-          Swal.fire({
-            title: 'Add to Cart',
-            html: modalContent,
-            showCancelButton: true,
-            confirmButtonText: 'Add to Cart',
-            confirmButtonColor: '#A59D84',
-            cancelButtonText: 'Cancel',
-            didOpen: () => {
-              // Extract price number for calculations
-              const priceNumber = parseInt(priceText.replace(/[^0-9]/g, ''));
-              
-              // Set up quantity selector functionality
-              const decreaseBtn = document.querySelector('.decrease');
-              const increaseBtn = document.querySelector('.increase');
-              const quantityInput = document.querySelector('.quantity-input');
-              const totalPriceDiv = document.querySelector('.total-price');
-              
-              const updateTotalPrice = () => {
-                const quantity = parseInt(quantityInput.value);
-                const total = quantity * priceNumber;
-                totalPriceDiv.textContent = `Total: ${formatRupiah(total)}`;
-              };
-              
-              decreaseBtn.addEventListener('click', () => {
-                let qty = parseInt(quantityInput.value);
-                if (qty > 1) {
-                  quantityInput.value = qty - 1;
-                  updateTotalPrice();
-                }
-              });
-              
-              increaseBtn.addEventListener('click', () => {
-                let qty = parseInt(quantityInput.value);
-                if (qty < 10) {
-                  quantityInput.value = qty + 1;
-                  updateTotalPrice();
-                }
-              });
-              
-              quantityInput.addEventListener('change', () => {
-                let qty = parseInt(quantityInput.value);
-                if (isNaN(qty) || qty < 1) quantityInput.value = 1;
-                if (qty > 10) quantityInput.value = 10;
-                updateTotalPrice();
-              });
-            }
-          }).then(async (result) => {
-            if (result.isConfirmed) {
-              const quantity = parseInt(document.querySelector('.quantity-input').value);
-              
-              // Add to cart using API
-              const success = await addToCartAPI(productId, quantity);
-              
-              if (success) {
-                Swal.fire({
-                  title: 'Added to Cart!',
-                  text: `${quantity} ${quantity > 1 ? 'items' : 'item'} of ${productName} added to your cart.`,
-                  icon: 'success',
-                  confirmButtonColor: '#A59D84'
-                });
-              }
-            }
-          });
+          showProductModal(productId, productName, productPrice, img);
         });
       });
     }
 
-    // Category modal
     async function showCategory(categoryName) {
       const modal = new bootstrap.Modal(document.getElementById('categoryModal'));
       document.getElementById('categoryModalLabel').textContent = categoryName;
       const body = document.getElementById('categoryModalBody');
       body.innerHTML = '<div class="text-center py-4">Loading...</div>';
       try {
-        // Ambil id kategori dari API
         const catRes = await fetch(`${BASE_API}/category`);
         const catJson = await catRes.json();
-        // Perbaikan di sini: dukung payload array langsung atau di dalam data
         const categories = Array.isArray(catJson.data) ? catJson.data : catJson;
         const cat = (categories || []).find(c => c.name.toLowerCase() === categoryName.toLowerCase());
         if (!cat) {
@@ -925,18 +946,16 @@
           modal.show();
           return;
         }
-        // Ambil produk berdasarkan categoryId
         const prodRes = await fetch(`${BASE_API}/product`);
         const prodJson = await prodRes.json();
         const products = (prodJson.data || []).filter(p => p.Category && p.Category.id === cat.id);
         if (!products.length) {
           body.innerHTML = '<div class="text-center text-muted">No products found in this category.</div>';
         } else {
-          // Ganti row menjadi flex container horizontal
           body.innerHTML = products.map(p => `
             <div class="col-md-4 mb-3">
               <div class="card product-card" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}" data-img="${p.image}">
-                <img src="${p.image || '/api/placeholder/300/400'}" class="card-img-top" alt="${p.name}">
+                <img src="${p.image || '/api/placeholder/300/400'}" class="card-img-top product-thumb" alt="${p.name}">
                 <div class="card-body px-0 py-2">
                   <h5 class="card-title">${p.name}</h5>
                   <p class="card-text">${formatRupiah(p.price)}</p>
@@ -952,57 +971,63 @@
       modal.show();
     }
 
-    // Load Best Seller Products
     async function loadBestSellerProducts() {
-      // Ganti id berikut dengan id produk best seller sebenarnya
-      const bestSellerIds = ['34', '34']; // contoh id, ganti dengan id produk best seller
+      const bestSellerIds = ['5', '6'];
       const bestSellerCards = document.querySelectorAll('.bestseller-card');
       
-      bestSellerIds.forEach(async (id, i) => {
-        if (!bestSellerCards[i]) return;
+      for (let i = 0; i < bestSellerIds.length; i++) {
+        const id = bestSellerIds[i];
+        const card = bestSellerCards[i];
+        
+        if (!card) continue;
         
         try {
           const res = await fetch(`${BASE_API}/product/${id}`);
           const json = await res.json();
+          
           if (json.data) {
             const product = json.data;
-            const card = bestSellerCards[i];
             
             // Update image
-            card.querySelector('img').src = product.image || '/api/placeholder/400/500';
-            card.querySelector('img').alt = product.name;
+            const imgElement = card.querySelector('img');
+            if (imgElement) {
+              imgElement.src = product.image || '/api/placeholder/400/500';
+              imgElement.alt = product.name;
+            }
             
-            // Update product details
-            card.querySelector('.bestseller-title').textContent = product.name;
-            card.querySelector('.bestseller-price').textContent = formatRupiah(product.price);
+            // Update title
+            const titleElement = card.querySelector('.bestseller-title');
+            if (titleElement) {
+              titleElement.textContent = product.name;
+            }
             
-            // Set product ID for add to cart button
-            card.querySelector('.add-to-cart-bestseller').setAttribute('data-id', product.id);
+            // Update price - PERBAIKAN DI SINI
+            const priceElement = card.querySelector('.bestseller-price');
+            if (priceElement) {
+              priceElement.textContent = formatRupiah(product.price);
+            }
+            
+            // Set product ID and price for add to cart button
+            const btnElement = card.querySelector('.add-to-cart-bestseller');
+            if (btnElement) {
+              btnElement.setAttribute('data-id', product.id);
+              btnElement.setAttribute('data-price', product.price);
+            }
           }
         } catch (e) {
           console.error('Failed to load bestseller product:', e);
         }
-      });
+      }
       
-      // Attach events to bestseller buttons
       attachBestSellerEvents();
     }
 
-    // Initialize everything when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
-      // Check login status on page load
       checkLoginStatus();
-      
-      // Update cart count on page load
       updateCartCount();
-      
-      // Latest products
       loadLatestProducts();
-      
-      // Load best seller products
       loadBestSellerProducts();
 
-      // Category VIEW buttons
       const viewBtns = document.querySelectorAll('.collection-section .view-btn');
       const categories = ['Sneakers', 'Heels', 'Sport'];
       viewBtns.forEach((btn, idx) => {

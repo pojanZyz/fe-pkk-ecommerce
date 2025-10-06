@@ -206,12 +206,13 @@
         // API Base URL
         const API_BASE_URL = 'https://be-pkk-production.up.railway.app/api/product';
         
-        // Global variables
-        let currentPage = 1;
-        let productsPerPage = 10;
-        let totalProducts = 0;
-        let products = [];
-        let categories = [];
+    // Global variables
+    let currentPage = 1;
+    let productsPerPage = 10;
+    let totalProducts = 0;
+    let products = [];
+    let filteredProducts = [];
+    let categories = [];
         
         // DOM Elements
         const productTableBody = document.getElementById('products-table-body');
@@ -250,12 +251,13 @@
             document.getElementById('cancel-delete').addEventListener('click', closeDeleteModal);
             document.getElementById('confirm-delete').addEventListener('click', deleteProduct);
             
-            // Pagination buttons
+            // Pagination buttons (client-side)
             document.getElementById('prev-page').addEventListener('click', (e) => {
                 e.preventDefault();
                 if (currentPage > 1) {
                     currentPage--;
-                    loadProducts();
+                    renderProducts();
+                    updatePagination();
                 }
             });
             
@@ -264,20 +266,28 @@
                 const maxPage = Math.ceil(totalProducts / productsPerPage);
                 if (currentPage < maxPage) {
                     currentPage++;
-                    loadProducts();
+                    renderProducts();
+                    updatePagination();
                 }
             });
             
             // Search button
             document.getElementById('search-btn').addEventListener('click', () => {
                 currentPage = 1;
-                loadProducts();
+                filterProducts();
+            });
+            // Enter key on search input
+            document.getElementById('search-input').addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    currentPage = 1;
+                    filterProducts();
+                }
             });
             
             // Category filter
             document.getElementById('category-filter').addEventListener('change', () => {
                 currentPage = 1;
-                loadProducts();
+                filterProducts();
             });
         }
         
@@ -293,51 +303,24 @@
                     </tr>
                 `;
                 
-                // Build query parameters
-                const searchQuery = document.getElementById('search-input').value;
-                const categoryFilter = document.getElementById('category-filter').value;
-                
-                let url = `${API_BASE_URL}`;
-                let params = [];
-                // Remove pagination params, because your backend /api/product does not support ?page & ?limit & ?meta.total
-                // Only use search and categoryId if needed
-                if (searchQuery) {
-                    params.push(`search=${encodeURIComponent(searchQuery)}`);
-                }
-                if (categoryFilter) {
-                    params.push(`categoryId=${encodeURIComponent(categoryFilter)}`);
-                }
-                if (params.length > 0) {
-                    url += '?' + params.join('&');
-                }
-                
-                // Fetch products
-                // Remove Cache-Control header, use default fetch (browser will handle caching properly)
-                const response = await fetch(url);
+                    // Fetch all products (do filtering client-side)
+                    const response = await fetch(API_BASE_URL);
                 
                 if (!response.ok) {
                     throw new Error('Failed to fetch products');
                 }
                 
                 const data = await response.json();
-                // Fix: data.data is array, no meta.total
                 products = Array.isArray(data.data) ? data.data : [];
-                totalProducts = products.length;
 
-                // Map category relation to uniform property for rendering
+                // Normalize category relations
                 products.forEach(product => {
-                    // Support both 'Category' and 'category' property from backend
-                    if (!product.category && product.Category) {
-                        product.category = product.Category;
-                    }
-                    // Support both 'categoryId' and 'CategoryId'
-                    if (!product.categoryId && product.CategoryId) {
-                        product.categoryId = product.CategoryId;
-                    }
+                    if (!product.category && product.Category) product.category = product.Category;
+                    if (!product.categoryId && product.CategoryId) product.categoryId = product.CategoryId;
                 });
 
-                updatePagination();
-                renderProducts();
+                // Apply client-side filtering and render
+                filterProducts();
                 
             } catch (error) {
                 showToast(`Error: ${error.message}`, 'error');
@@ -353,7 +336,7 @@
         
         // Render products to table
         function renderProducts() {
-            if (products.length === 0) {
+            if (filteredProducts.length === 0) {
                 productTableBody.innerHTML = `
                     <tr>
                         <td colspan="7" class="px-6 py-4 text-center text-gray-500">
@@ -363,10 +346,15 @@
                 `;
                 return;
             }
-            
+
             productTableBody.innerHTML = '';
-            
-            products.forEach(product => {
+
+            // paginate
+            const startIndex = (currentPage - 1) * productsPerPage;
+            const endIndex = startIndex + productsPerPage;
+            const productsToShow = filteredProducts.slice(startIndex, endIndex);
+
+            productsToShow.forEach(product => {
                 const tr = document.createElement('tr');
                 tr.className = 'hover:bg-gray-50';
 
@@ -394,7 +382,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${product.id}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <img src="${product.image || '/api/placeholder/50/50'}" alt="${product.name}" 
-                            class="h-10 w-10 rounded-full object-cover"
+                            class="w-16 h-16 object-cover rounded" 
                             onerror="this.src='/api/placeholder/50/50'; this.onerror=null;">
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${product.name}</td>
@@ -422,6 +410,33 @@
             document.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', () => openDeleteModal(btn.dataset.id, btn.dataset.name));
             });
+        }
+
+        // Filter products client-side based on search and category
+        function filterProducts() {
+            const searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
+            const categoryFilter = document.getElementById('category-filter').value;
+
+            filteredProducts = products.filter(p => {
+                // name or description search
+                const name = (p.name || '').toLowerCase();
+                const desc = (p.description || '').toLowerCase();
+                const matchesSearch = !searchQuery || name.includes(searchQuery) || desc.includes(searchQuery) || String(p.id).includes(searchQuery);
+
+                // category filtering (match by id or name)
+                let matchesCategory = true;
+                if (categoryFilter) {
+                    const catId = String(p.categoryId || (p.category && p.category.id) || '').toLowerCase();
+                    matchesCategory = String(categoryFilter).toLowerCase() === catId || (p.category && String(p.category.id) === String(categoryFilter));
+                }
+
+                return matchesSearch && matchesCategory;
+            });
+
+            totalProducts = filteredProducts.length;
+            currentPage = 1;
+            updatePagination();
+            renderProducts();
         }
         
         // Update pagination information
