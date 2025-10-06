@@ -521,7 +521,7 @@
           if (res.ok) {
             const data = await res.json();
             // Cek jika username === 'admin'
-            if (data && data.username === 'admin') {
+            if (data && data.role === 'admin') {
               isAdmin = true;
             }
           }
